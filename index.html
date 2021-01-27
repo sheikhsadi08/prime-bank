@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Bank</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <div id="fullPage" class="login-area">
+    <h1 class="bank-title text-center">Welcome To Prime Bank</h1>
+    <div class="submit-area">
+      <h4>Log In</h4>
+      <input type="text" class="form-control" placeholder="Email">
+      <br>
+      <input type="password" class="form-control" placeholder="Password" name="" id="">
+      <br>
+      <button id="login" class="btn btn-success">Enter</button>
+    </div>
+  </div>
+
+  <div id="transaction-side" class="transaction-area">
+
+    <div class="row">
+
+      <!-- deposit box -->
+      <div class="col-md-4">
+        <div class="deposit status">
+          <h5>Deposit</h5>
+          <h2>$ <span id="currentDeposit">00</span></h2>
+        </div>
+      </div>
+
+      <!-- withdraw box -->
+      <div class="col-md-4">
+        <div class="withdraw status">
+          <h5>Withdraw</h5>
+          <h2>$ <span id="currentWithdraw">00</span></h2>
+        </div>
+      </div>
+
+      <!-- balance box -->
+      <div class="col-md-4">
+        <div class="balance status">
+          <h5>Balance</h5>
+          <h2>$ <span id="currentBalance">00</span></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <!-- deposit section -->
+      <div class="col-md-6">
+        <div class="submit-area">
+          <h1>Deposit</h1>
+          <input id="depositInput" type="text" class="form-control" placeholder="$ amount you want to deposit">
+           <br>
+          <div id="depositBtn" class="btn btn-success">Deposit</div>
+        </div>
+      </div>
+
+       <!-- withdraw section -->
+      <div class="col-md-6">
+        <div class="submit-area">
+          <h1>Withdraw</h1>
+          <input id="withdrawInput" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+           <br>
+          <div id="withdrawBtn" class="btn btn-success">Withdraw</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+
+  // login button event handler.
+    const loginBtn = document.getElementById("login");
+    const fullPage = document.getElementById("fullPage");
+    const transactionSide = document.getElementById("transaction-side");
+
+
+  // login & dashboard section.
+    function removeAndAdd(){
+      fullPage.style.display = "none";
+      transactionSide.style.display = "block";
+    }
+    loginBtn.addEventListener("click", removeAndAdd);
+    
+
+  // get input number.
+    function getInput(id) {
+      const inputValue =  parseFloat(document.getElementById(id).value);
+      return inputValue;
+    }
+
+  // update text to text-board function.
+    function updateSpanText(id, getInputValue) {
+      const getOldValue = parseFloat(document.getElementById(id).innerText);
+      const totalAmount = getInputValue + getOldValue;
+      document.getElementById(id).innerText = totalAmount;
+    }
+
+
+  // deposit button event handler.
+    const depositBtn = document.getElementById("depositBtn");
+    function deposit() {
+      const getDepositValue = getInput("depositInput");
+      updateSpanText("currentDeposit", getDepositValue);
+      updateSpanText("currentBalance", getDepositValue);
+      depositInput.value = "";
+    }
+    depositBtn.addEventListener("click", deposit);
+
+
+
+  // withdraw button event handler.
+    const withdrawBtn = document.getElementById("withdrawBtn");
+    function withdraw() {
+      const getWithdrawValue = getInput("withdrawInput");
+      updateSpanText("currentWithdraw", getWithdrawValue);
+      updateSpanText("currentBalance", -1 * getWithdrawValue);
+      withdrawInput.value = "";
+    }
+    withdrawBtn.addEventListener("click", withdraw);
+
+  </script>
+
+</body>
+</html>
